@@ -21,7 +21,7 @@ Following
 https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints
 */
 
-class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+class OldEndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
 
@@ -57,8 +57,9 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 
     @Override
     protected void onPostExecute(String result) {
+        //downloadListener.downloadCompleted(result);
         //Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-        Intent intent = TellJokeActivity.makeIntent(context, result);
-        context.startActivity(intent);
+        //Intent intent = TellJokeActivity.makeIntent(context, result);
+        //context.startActivity(intent);
     }
 }

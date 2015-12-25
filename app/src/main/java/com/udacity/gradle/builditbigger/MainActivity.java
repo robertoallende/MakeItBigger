@@ -8,11 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
 import com.robertoallende.myjokeactivity.TellJokeActivity;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements IDownloadListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,14 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        // new OldEndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
         // Toast.makeText(this, joke, Toast.LENGTH_LONG).show();
+        new AsyncFileDownloader(this).getJoke(this);
+    }
 
+    @Override
+    public void downloadCompleted(String result) {
+        Intent intent = TellJokeActivity.makeIntent(this, result);
+        this.startActivity(intent);
     }
 }
