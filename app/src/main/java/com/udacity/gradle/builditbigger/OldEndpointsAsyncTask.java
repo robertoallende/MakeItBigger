@@ -49,7 +49,7 @@ class OldEndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, Strin
         String name = params[0].second;
 
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.tellJoke().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
