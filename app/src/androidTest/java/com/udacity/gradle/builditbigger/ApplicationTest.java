@@ -1,8 +1,8 @@
 package com.udacity.gradle.builditbigger;
 
-import android.app.Application;
 import android.test.AndroidTestCase;
-import android.test.ApplicationTestCase;
+
+import junit.framework.Assert;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -12,12 +12,36 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         super(Application.class);
     }
 }
+
+Following
+ http://www.making-software.com/2012/10/31/testable-android-asynctask/
+ http://stackoverflow.com/questions/15938538/how-can-i-make-a-junit-test-wait
  */
 
-public class ApplicationTest extends AndroidTestCase {
+public class ApplicationTest extends AndroidTestCase implements IDownloadListener {
 
-    public void testVerifyEchoResponse() {
-        //assertEquals("hello", Echo.echo("hello"));
+    private boolean completed = false;
+    private String result = "";
+
+    public void testVerifyApiResponse() throws InterruptedException {
+        new AsyncFileDownloader(this).getJoke(this.getContext());
+
+        while (completed == false) {
+            Thread.sleep(100);
+        }
+
+        if (result == null) {
+            fail("Bad joke: AsyncTask result is null");
+        }
+
+        if (result.length() == 0) {
+            fail("Bad joke: AsyncTask result is empty");
+        }
     }
 
+    @Override
+    public void downloadCompleted(String string) {
+        result = string;
+        completed = true;
+    }
 }
