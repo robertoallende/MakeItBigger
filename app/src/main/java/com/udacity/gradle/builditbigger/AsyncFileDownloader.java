@@ -16,7 +16,6 @@ public class AsyncFileDownloader
 {
     private IDownloadListener downloadListener;
 
-
     public AsyncFileDownloader( IDownloadListener downloadListener )
     {
         this.downloadListener = downloadListener;
